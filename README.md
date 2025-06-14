@@ -17,7 +17,7 @@ A responsive, user-friendly web application built to manage and track your perso
 🚀 Technologies Used
 HTML5 & CSS3
 
-JavaScript (Vanilla)
+JavaScript 
 
 Bootstrap 5
 
