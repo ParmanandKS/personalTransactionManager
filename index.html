@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        background-image: url("./assets/background.jpeg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        font-family: "Segoe UI", sans-serif;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #title {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .scrolling-title {
+        display: inline-block;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #0d6efd;
+        animation: scroll-left 10s linear infinite;
+      }
+
+      @keyframes scroll-left {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      .login-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .login-card {
+        width: 400px;
+        padding: 30px;
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.95);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .login-card:hover {
+        transform: scale(1.02);
+      }
+
+      .form-label {
+        font-weight: 600;
+      }
+
+      .login-btn,
+      .signup-btn {
+        width: 100%;
+        margin-top: 15px;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+      }
+
+      .login-btn:hover,
+      .signup-btn:hover {
+        transform: scale(1.05);
+      }
+
+      footer {
+        text-align: center;
+        padding: 10px 0;
+        background-color: rgba(255, 255, 255, 0.7);
+      }
+
+      footer a {
+        text-decoration: none;
+        color: #f20000;
+      }
+
+      footer a:hover {
+        color: #1900ff;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Title -->
+    <div id="title">
+      <h2 class="scrolling-title">Personal Transaction Manager</h2>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-container">
+      <div class="card login-card">
+        <div class="card-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone No:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phone"
+                name="phone"
+                placeholder="Enter Phone Number"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary login-btn"
+              onclick="login()"
+            >
+              Login
+            </button>
+            <!-- Trigger modal -->
+            <button
+              type="button"
+              class="btn btn-outline-secondary signup-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#signupModal"
+            >
+              Sign Up
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div
+      class="modal fade"
+      id="signupModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="signupModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <form id="signupForm" method="post">
+            <div class="modal-header">
+              <h1
+                class="modal-title fs-5"
+                id="signupModalLabel"
+                onclick="signIn()"
+              >
+                Create New Account
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="name" class="form-label" id="fName"
+                  >Full Name:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  name="name"
+                  placeholder="Enter full name"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="signupPhone" class="form-label">Phone No:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="signupPhone"
+                  name="phone"
+                  placeholder="Enter phone number"
+                  required
+                  id="phoneNo"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="balance" class="form-label">Opening Balance:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="balance"
+                  name="balance"
+                  placeholder="Enter opening balance"
+                  required
+                  id="oBal"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; All rights reserved by
+        <a href="https://github.com/ParmanandKS" target="_blank">ParmanandKS</a>
+      </p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Login function
+      function login() {
+        const mobNo = document.getElementById("phone").value;
+      axios
+        .post("https://codingshika.com/APP/EXP/user_login.php?mobile=" + mobNo)
+        .then((res) => {
+          if (res.data.posts && res.data.posts.status == 200) {
+            alert("Welcome back!");
+            sessionStorage.setItem("userId", res.data.posts.id);
+            window.location.href = "dashboard.html";
+          } else {
+            alert("Login failed. Please try again.");
+          }
+        })
+        .catch((error) => {
+          console.error("Login error:", error);
+          alert("Something went wrong. Please try again later.");
+        });
+      }
+      // Register function
+      function signIn() {
+        const name = document.getElementById("name").value.trim();
+        const phone = document.getElementById("signupPhone").value.trim();
+        const openingBalance = parseFloat(
+          document.getElementById("balance").value
+        );
+        axios
+          .post(
+            "https://codingshika.com/APP/EXP/add_user.php?mob=" +
+              phone +
+              "&uname=" +
+              name +
+              "&opbal=" +
+              openingBalance
+          )
+          .then((res) => {
+            if (res.data.posts && res.data.posts.status == 200) {
+              alert(
+                "Registered Successfully!\nName: " +
+                  name +
+                  "\nPhone:" +
+                  phone +
+                  "\nBalance:" +
+                  openingBalance
+              );
+              alert("Now you Can Login.")   
+            window.location.href = "index.html";
+            } else {
+              alert("Registration Failed. Please try again.");
+            }
+          })
+          .catch((error) => {
+            console.error("Registration error:", error);
+            alert("Something went wrong. Please try again later.");
+          });
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("loginForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            login();
+          });
+
+        document
+          .getElementById("signupForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            signIn();
+          });
+      });
+    </script>
+  </body>
+</html>
